@@ -16,8 +16,10 @@
 
 package com.android.example.paging.pagingwithnetwork.reddit.api
 
+import android.app.Application
 import android.util.Log
 import com.android.example.paging.pagingwithnetwork.reddit.vo.RedditPost
+import com.readystatesoftware.chuck.ChuckInterceptor
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -63,8 +65,8 @@ interface RedditApi {
 
     companion object {
         private const val BASE_URL = "https://www.reddit.com/"
-        fun create(): RedditApi = create(HttpUrl.parse(BASE_URL)!!)
-        fun create(httpUrl: HttpUrl): RedditApi {
+        fun create(application: Application): RedditApi = create(HttpUrl.parse(BASE_URL)!!, application)
+        fun create(httpUrl: HttpUrl, application: Application): RedditApi {
             val logger = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger {
                 Log.d("API", it)
             })
@@ -72,6 +74,7 @@ interface RedditApi {
 
             val client = OkHttpClient.Builder()
                     .addInterceptor(logger)
+                    .addInterceptor(ChuckInterceptor(application))
                     .build()
             return Retrofit.Builder()
                     .baseUrl(httpUrl)

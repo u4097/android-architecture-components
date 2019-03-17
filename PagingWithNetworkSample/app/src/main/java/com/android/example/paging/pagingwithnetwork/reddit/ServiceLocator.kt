@@ -82,7 +82,7 @@ open class DefaultServiceLocator(val app: Application, val useInMemoryDb: Boolea
     }
 
     private val api by lazy {
-        RedditApi.create()
+        RedditApi.create(app)
     }
 
     override fun getRepository(type: RedditPostRepository.Type): RedditPostRepository {

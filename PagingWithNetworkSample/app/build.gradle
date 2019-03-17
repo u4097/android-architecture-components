@@ -65,6 +65,10 @@ dependencies {
     implementation deps.okhttp_logging_interceptor
     implementation deps.glide.runtime
 
+
+    // CHUCK
+    implementation "com.readystatesoftware.chuck:library:1.1.0"
+
     // Android Testing Support Library's runner and rules
     androidTestImplementation deps.atsl.runner
     androidTestImplementation deps.atsl.rules
